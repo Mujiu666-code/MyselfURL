@@ -48,7 +48,6 @@
             user-select: none;
         }
 
-        /* ============ 星空背景层 ============ */
         .stars-layer {
             position: fixed;
             top: 0;
@@ -86,7 +85,6 @@
             }
         }
 
-        /* ============ 光晕渐变背景 ============ */
         .bg-aurora {
             position: fixed;
             top: -30%;
@@ -119,7 +117,6 @@
             }
         }
 
-        /* ============ 网格线装饰 ============ */
         .grid-overlay {
             position: fixed;
             top: 0;
@@ -134,7 +131,6 @@
             background-size: 60px 60px;
         }
 
-        /* ============ 主容器 ============ */
         .main-container {
             position: relative;
             z-index: 1;
@@ -146,7 +142,6 @@
             gap: 16px;
         }
 
-        /* ============ 顶部导航栏 ============ */
         .top-nav {
             display: flex;
             align-items: center;
@@ -252,7 +247,6 @@
             color: var(--neon-cyan);
         }
 
-        /* ============ 视图面板容器 ============ */
         .views-wrapper {
             position: relative;
             min-height: 400px;
@@ -289,7 +283,6 @@
             }
         }
 
-        /* ============ 主卡片 ============ */
         .main-card {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
@@ -345,7 +338,6 @@
             }
         }
 
-        /* ============ 头像区域 ============ */
         .avatar-section {
             display: flex;
             align-items: center;
@@ -432,7 +424,6 @@
             box-shadow: 0 0 10px rgba(255, 107, 157, 0.2);
         }
 
-        /* ============ 数字身份区 ============ */
         .identity-numbers {
             display: flex;
             gap: 10px;
@@ -475,7 +466,6 @@
             margin-top: 2px;
         }
 
-        /* ============ 帖子内容区 ============ */
         .post-content {
             margin: 8px 0;
             padding: 12px 0;
@@ -539,7 +529,6 @@
             font-weight: 600;
         }
 
-        /* ============ 音乐播放器 ============ */
         .music-player {
             background: rgba(0, 0, 0, 0.35);
             border: 1px solid rgba(255, 255, 255, 0.06);
@@ -707,7 +696,6 @@
             color: var(--text-primary);
             box-shadow: 0 0 10px var(--glow-purple);
         }
-        /* 音频可视化条 */
         .audio-viz {
             display: flex;
             gap: 2px;
@@ -724,7 +712,6 @@
             opacity: 0.7;
         }
 
-        /* ============ 弹幕输入区 ============ */
         .danmaku-input-area {
             display: flex;
             gap: 8px;
@@ -775,7 +762,6 @@
             transform: scale(0.95);
         }
 
-        /* ============ 弹幕飘浮层 ============ */
         .danmaku-overlay {
             position: fixed;
             top: 0;
@@ -813,7 +799,6 @@
             }
         }
 
-        /* ============ 系统警告条 ============ */
         .system-warning {
             font-family: var(--font-mono);
             font-size: 0.6rem;
@@ -848,7 +833,6 @@
             opacity: 0.7;
         }
 
-        /* ============ 抖音社交卡片 ============ */
         .social-card {
             background: rgba(0, 0, 0, 0.3);
             border: 1px solid rgba(255, 255, 255, 0.06);
@@ -910,7 +894,6 @@
             background: rgba(94, 234, 219, 0.1);
         }
 
-        /* ============ 樱花瓣飘落 ============ */
         .sakura-petal {
             position: fixed;
             pointer-events: none;
@@ -940,7 +923,6 @@
             }
         }
 
-        /* ============ 第二视图 - 构建未来 ============ */
         .hero-title-large {
             font-size: 1.6rem;
             font-weight: 800;
@@ -989,7 +971,6 @@
             margin-top: 2px;
         }
 
-        /* ============ 第三视图 - AKURASHINKHISEN ============ */
         .mystic-title {
             font-family: var(--font-mono);
             font-size: 1.3rem;
@@ -1042,7 +1023,6 @@
             transform: scale(1.03);
         }
 
-        /* ============ 点击涟漪 ============ */
         .ripple {
             position: fixed;
             border-radius: 50%;
@@ -1066,7 +1046,6 @@
             }
         }
 
-        /* 滚动条 */
         ::-webkit-scrollbar {
             width: 4px;
         }
@@ -1081,7 +1060,6 @@
             background: rgba(255, 255, 255, 0.15);
         }
 
-        /* ============ 响应式 ============ */
         @media (min-width: 768px) {
             .main-container {
                 max-width: 560px;
@@ -1146,22 +1124,13 @@
 </head>
 <body>
 
-    <!-- 星空背景 -->
     <div class="stars-layer" id="starsLayer"></div>
-
-    <!-- 光晕渐变 -->
     <div class="bg-aurora"></div>
-
-    <!-- 网格线 -->
     <div class="grid-overlay"></div>
-
-    <!-- 弹幕飘浮层 -->
     <div class="danmaku-overlay" id="danmakuOverlay"></div>
 
-    <!-- 主容器 -->
     <div class="main-container" id="mainContainer">
 
-        <!-- 顶部导航 -->
         <nav class="top-nav">
             <button class="btn-back" onclick="switchView(0)" title="返回主页">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -1182,7 +1151,6 @@
             </div>
         </nav>
 
-        <!-- 视图面板容器 -->
         <div class="views-wrapper" id="viewsWrapper">
 
             <!-- ====== 视图0：主视图 ====== -->
@@ -1195,11 +1163,11 @@
                     <div class="avatar-section">
                         <div class="avatar-ring">
                             <div class="avatar-inner">
-                                <div class="avatar-placeholder">BZ</div>
+                                <div class="avatar-placeholder">MJ</div>
                             </div>
                         </div>
                         <div class="avatar-info">
-                            <h2>Bob Zhang</h2>
+                            <h2>mujiu</h2>
                             <div class="subtitle">江理计算机学子 | MuJiu 开发者</div>
                             <div class="badge-row">
                                 <span class="badge highlight">8载档案</span>
@@ -1232,7 +1200,6 @@
                         </div>
                         <div class="post-engagement">❤️ <span>189</span> 次互动 · 留下你的足迹</div>
                     </div>
-                    <!-- 音乐播放器 -->
                     <div class="music-player" id="musicPlayer">
                         <div class="music-info-row">
                             <div class="music-title">
@@ -1269,13 +1236,11 @@
                             <span class="music-opt" onclick="toggleMusicOpt(this)">智能倍速</span>
                         </div>
                     </div>
-                    <!-- 弹幕输入 -->
                     <div class="danmaku-input-area">
                         <input type="text" class="danmaku-input" id="danmakuInput" placeholder="发一条友好的弹幕吧" maxlength="40" onkeydown="if(event.key==='Enter')sendDanmaku()">
                         <button class="danmaku-send-btn" onclick="sendDanmaku()">发送</button>
                     </div>
                 </div>
-                <!-- 系统警告 -->
                 <div class="system-warning" onclick="switchView(2)" title="点击进入AKURA空间">
                     ⚠ 系统警告：所有通道均已端到端加密。请通过授权握手继续。
                 </div>
@@ -1388,10 +1353,9 @@
                 </div>
             </div>
 
-        </div><!-- .views-wrapper 结束 -->
+        </div>
 
-    </div><!-- .main-container 结束 -->
-
+    </div>
 
     <script>
         // ==================== 星空生成 ====================
@@ -1477,11 +1441,9 @@
                 target.style.animation = 'viewFadeIn 0.5s ease forwards';
             }
             currentViewIndex = index;
-            // 更新导航标签
             document.querySelectorAll('.nav-tab').forEach(tab => {
                 tab.classList.toggle('active', parseInt(tab.getAttribute('data-view')) === index);
             });
-            // 滚动到视图
             const wrapper = document.getElementById('viewsWrapper');
             if (wrapper) wrapper.scrollIntoView({ behavior: 'smooth', block: 'start' });
             showToast(`📍 切换到：${viewNames[index] || '未知视图'}`);
@@ -1534,22 +1496,42 @@
 
         // 自动弹幕
         const autoDanmakuMessages = [
-            '欢迎来到mujiu的宇宙！🚀', '这个网站太酷了吧', '二次元风格爱了爱了',
-            'AI Agent是未来！', '大三就这么强吗', '极客精神！',
-            '这配色，是赛博菩萨吗', '大佬！', '设计感满分',
+            '欢迎来到mujiu的宇宙！🚀',
+            '这个网站太酷了吧',
+            '二次元风格爱了爱了',
+            'AI Agent是未来！',
+            '大三就这么强吗',
+            '极客精神！',
+            '这配色，是赛博菩萨吗',
+            '大佬！',
+            '设计感满分',
             '霓虹与暗夜，程序员的终极浪漫',
-            '樱花瓣飘落的那一刻，心都化了'
-            '樱花飘落好美~', '赛博朋克风！', '加油加油！',
-            '已Star！', '同是计算机学生', '膜拜大佬',
-            'RPA自动化有意思', '170+随笔太强了', '8载档案沉淀',
-            '欢迎来到二次元与代码的交界地带 ✨', '这个终端界面，有春天与樱花的气息 🌸',
-            '你已进入高维极客空间——LIFEMATRIX', '点击即签订契约，成为魔法工程师 ⚡',
-            '像素里的温柔，是写给世界的诗', '今夜，服务器也会梦见樱花吗？',
-            '你的网站，我的赛博故乡 🏙️', '次元壁？在这里不存在。',
-            '留下第一个Star，把好运也留在这里 ⭐', '全栈之光，照在了大三上',
-            '代码如诗，架构如画', '这就是下一代CTO的雏形吗',
-            '从RPA到AI Agent，全链路掌控者', '这设计，苹果看了都想挖人',
-            '浏览器控制台里一定藏着彩蛋吧？', '这代码洁癖，爱了',
+            '樱花瓣飘落的那一刻，心都化了',
+            '樱花飘落好美~',
+            '赛博朋克风！',
+            '加油加油！',
+            '已Star！',
+            '同是计算机学生',
+            '膜拜大佬',
+            'RPA自动化有意思',
+            '170+随笔太强了',
+            '8载档案沉淀',
+            '欢迎来到二次元与代码的交界地带 ✨',
+            '这个终端界面，有春天与樱花的气息 🌸',
+            '你已进入高维极客空间——LIFEMATRIX',
+            '点击即签订契约，成为魔法工程师 ⚡',
+            '像素里的温柔，是写给世界的诗',
+            '今夜，服务器也会梦见樱花吗？',
+            '你的网站，我的赛博故乡 🏙️',
+            '次元壁？在这里不存在。',
+            '留下第一个Star，把好运也留在这里 ⭐',
+            '全栈之光，照在了大三上',
+            '代码如诗，架构如画',
+            '这就是下一代CTO的雏形吗',
+            '从RPA到AI Agent，全链路掌控者',
+            '这设计，苹果看了都想挖人',
+            '浏览器控制台里一定藏着彩蛋吧？',
+            '这代码洁癖，爱了',
         ];
         let autoDanmakuIndex = 0;
         setInterval(() => {
@@ -1564,21 +1546,21 @@
         // ==================== Web Audio API 音乐合成器 ====================
         let audioCtx = null;
         let musicInterval = null;
+        let noteInterval = null;
         let isPlaying = false;
         let currentProgress = 12;
         let currentNoteIndex = 0;
         let masterGain = null;
         let activeOscillators = [];
-        const totalDuration = 106; // 总时长秒数
+        const totalDuration = 106;
 
-        // 旋律音符频率 (Hz) - 模拟 Person 的简单旋律
         const melodyNotes = [
             261.63, 293.66, 329.63, 349.23, 392.00, 349.23, 329.63, 293.66,
             261.63, 329.63, 392.00, 440.00, 392.00, 349.23, 329.63, 293.66,
             261.63, 293.66, 329.63, 349.23, 392.00, 440.00, 392.00, 349.23,
             329.63, 293.66, 261.63, 329.63, 392.00, 349.23, 293.66, 261.63,
         ];
-        const noteDuration = totalDuration / melodyNotes.length; // 每个音符的时长(秒)
+        const noteDuration = totalDuration / melodyNotes.length;
 
         function initAudio() {
             if (!audioCtx) {
@@ -1616,7 +1598,6 @@
             osc.start(startTime);
             osc.stop(startTime + duration + 0.05);
             activeOscillators.push(osc);
-            // 清理
             setTimeout(() => {
                 const idx = activeOscillators.indexOf(osc);
                 if (idx > -1) activeOscillators.splice(idx, 1);
@@ -1624,7 +1605,7 @@
         }
 
         function scheduleNextNote() {
-            if (!isPlaying || !audioCtx || !masterGain) return;
+            if (!isPlaying || !audioCtx || !masterGain || audioCtx.state !== 'running') return;
             const now = audioCtx.currentTime;
             const freq = melodyNotes[currentNoteIndex % melodyNotes.length];
             playNote(freq, now, noteDuration * 0.85, 0.05 + Math.random() * 0.03);
@@ -1640,32 +1621,40 @@
             stopMusicProgress();
             stopAllOscillators();
             currentNoteIndex = Math.floor((currentProgress / 100) * melodyNotes.length);
+            // 独立音符调度循环
+            if (noteInterval) clearInterval(noteInterval);
             scheduleNextNote();
+            noteInterval = setInterval(() => {
+                if (isPlaying && audioCtx && audioCtx.state === 'running') {
+                    scheduleNextNote();
+                }
+            }, noteDuration * 1000);
+            // 进度更新循环
             musicInterval = setInterval(() => {
                 if (currentProgress < 100) {
                     currentProgress += (100 / totalDuration) * 0.25;
                     if (currentProgress > 100) currentProgress = 100;
                     updateProgressUI();
-                    // 检查是否需要播放下一个音符
-                    const expectedNoteIndex = Math.floor((currentProgress / 100) * melodyNotes.length);
-                    if (expectedNoteIndex > currentNoteIndex && isPlaying) {
-                        scheduleNextNote();
-                    }
                 } else {
                     currentProgress = 0;
                     currentNoteIndex = 0;
                     updateProgressUI();
-                    if (isPlaying) scheduleNextNote();
                 }
             }, 250);
-            // 初始调度几个音符
-            for (let i = 0; i < 4; i++) scheduleNextNote();
+            // 额外调度几个音符确保开始时有声音
+            for (let i = 0; i < 3; i++) {
+                setTimeout(() => {
+                    if (isPlaying && audioCtx && audioCtx.state === 'running') scheduleNextNote();
+                }, noteDuration * 1000 * (i + 1) * 0.5);
+            }
         }
 
         function stopMusic() {
             stopMusicProgress();
             stopAllOscillators();
             currentNoteIndex = 0;
+            if (noteInterval) { clearInterval(noteInterval);
+                noteInterval = null; }
         }
 
         function stopMusicProgress() {
@@ -1759,7 +1748,6 @@
             el.classList.toggle('active');
         }
 
-        // 音频可视化
         function updateAudioViz() {
             const bars = document.querySelectorAll('#audioViz .bar');
             if (!bars.length) return;
@@ -1875,7 +1863,6 @@
                 const input = document.getElementById('danmakuInput');
                 if (input) input.focus();
             }
-            // 数字键切换视图
             if (e.key >= '0' && e.key <= '4' && e.target === document.body && !e.ctrlKey && !e.metaKey) {
                 e.preventDefault();
                 switchView(parseInt(e.key));
@@ -1883,14 +1870,14 @@
         });
 
         // ==================== 初始化 ====================
-        console.log('%c🌸 BobZhang.top %c已就绪 %c| %cLIFEMATRIX//SYNC v2026.03',
+        console.log('%c🌸 mujiu.top %c已就绪 %c| %cLIFEMATRIX//SYNC v2026.03',
             'color:#ff6b9d;font-size:1.2em;', 'color:#5eeadb;', 'color:#b57bee;', 'color:#aaa;');
         console.log('%c所有通道均已端到端加密。欢迎来访！', 'color:#b57bee;font-style:italic;');
         console.log('%c💡 提示：按空格键播放/暂停音乐 | 按0-4切换视图 | Ctrl+D聚焦弹幕',
             'color:#888;');
         console.log('%c🎵 音乐合成器已就绪，点击播放按钮即可听到旋律！', 'color:#5eeadb;');
 
-        setTimeout(() => showToast('🌸 欢迎来访，Bob Zhang！点击播放按钮收听音乐 🎵'), 800);
+        setTimeout(() => showToast('🌸 欢迎来访，mujiu！点击播放按钮收听音乐 🎵'), 800);
         setTimeout(() => showToast('💡 按数字键 0-4 可切换视图 | 顶部标签也可切换'), 2800);
     </script>
 </body>
