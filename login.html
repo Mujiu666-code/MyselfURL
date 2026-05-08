@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>冬日登录 · Winter Login</title>
+    <style>
+        :root {
+            --frost-blue: #b8d4f0;
+            --ice-white: #e8f4fd;
+            --snow-white: #f0f6fc;
+            --glacier-blue: #a0c8e8;
+            --deep-frost: #7ab4d8;
+            --light-frost: #d0e8fa;
+            --card-bg: rgba(220, 238, 255, 0.35);
+            --card-border: rgba(200, 225, 250, 0.5);
+            --input-bg: rgba(255, 255, 255, 0.45);
+            --input-border: rgba(180, 210, 240, 0.55);
+            --input-focus: rgba(130, 190, 230, 0.7);
+            --text-primary: #3a5a7c;
+            --text-secondary: #5a7d9a;
+            --text-muted: #7a9ab5;
+            --btn-primary: linear-gradient(135deg, #7eb8da, #a0cfe8);
+            --btn-hover: linear-gradient(135deg, #6aa8cc, #8cc0e0);
+            --btn-shadow: rgba(120, 180, 220, 0.45);
+            --frost-glow: rgba(180, 210, 240, 0.5);
+            --font-sans: 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', 'Hiragino Sans GB', sans-serif;
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+            background: linear-gradient(180deg,
+                    #c8dff5 0%, #d8eafa 25%, #e4f0fb 50%,
+                    #eef6fc 70%, #f5f9fd 100%);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ============ 动漫背景层 ============ */
+        .anime-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            background:
+                /* 远山雪景 */
+                radial-gradient(ellipse at 15% 85%, rgba(200, 220, 240, 0.7) 0%, transparent 40%),
+                radial-gradient(ellipse at 35% 80%, rgba(190, 215, 238, 0.6) 0%, transparent 35%),
+                radial-gradient(ellipse at 60% 82%, rgba(210, 228, 242, 0.55) 0%, transparent 38%),
+                radial-gradient(ellipse at 80% 78%, rgba(195, 218, 238, 0.5) 0%, transparent 32%),
+                /* 天空渐变 */
+                linear-gradient(180deg,
+                    #c8e0f8 0%, #d4e8fa 20%, #e0effc 40%,
+                    #eaf4fd 60%, #f0f7fe 80%, #f8fafe 100%),
+                /* 雪花光斑 */
+                radial-gradient(circle at 25% 30%, rgba(255, 255, 255, 0.5) 0%, transparent 25%),
+                radial-gradient(circle at 70% 20%, rgba(255, 255, 255, 0.4) 0%, transparent 20%),
+                radial-gradient(circle at 50% 60%, rgba(255, 255, 255, 0.3) 0%, transparent 30%),
+                radial-gradient(circle at 85% 45%, rgba(255, 255, 255, 0.35) 0%, transparent 22%);
+            background-size: 100% 100%;
+        }
+
+        /* 动漫风格装饰：远山剪影 */
+        .anime-mountains {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40%;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.6;
+        }
+        .mountain {
+            position: absolute;
+            bottom: 0;
+            width: 0;
+            height: 0;
+            border-style: solid;
+        }
+        .mountain-1 {
+            left: -5%;
+            border-width: 0 280px 220px 180px;
+            border-color: transparent transparent rgba(185, 210, 235, 0.7) transparent;
+        }
+        .mountain-2 {
+            left: 15%;
+            border-width: 0 250px 280px 200px;
+            border-color: transparent transparent rgba(195, 218, 240, 0.65) transparent;
+        }
+        .mountain-3 {
+            left: 40%;
+            border-width: 0 300px 250px 220px;
+            border-color: transparent transparent rgba(200, 222, 242, 0.7) transparent;
+        }
+        .mountain-4 {
+            left: 60%;
+            border-width: 0 260px 300px 240px;
+            border-color: transparent transparent rgba(190, 215, 238, 0.6) transparent;
+        }
+        .mountain-5 {
+            right: -5%;
+            border-width: 0 280px 230px 200px;
+            border-color: transparent transparent rgba(200, 222, 240, 0.7) transparent;
+        }
+        .mountain-snow {
+            position: absolute;
+            bottom: 0;
+            width: 0;
+            height: 0;
+            border-style: solid;
+        }
+        .mountain-snow-1 {
+            left: 8%;
+            bottom: 185px;
+            border-width: 0 60px 30px 40px;
+            border-color: transparent transparent rgba(240, 248, 255, 0.8) transparent;
+        }
+        .mountain-snow-2 {
+            left: 22%;
+            bottom: 240px;
+            border-width: 0 50px 25px 35px;
+            border-color: transparent transparent rgba(240, 248, 255, 0.75) transparent;
+        }
+        .mountain-snow-3 {
+            left: 50%;
+            bottom: 210px;
+            border-width: 0 55px 28px 38px;
+            border-color: transparent transparent rgba(240, 248, 255, 0.8) transparent;
+        }
+        .mountain-snow-4 {
+            left: 70%;
+            bottom: 255px;
+            border-width: 0 48px 24px 32px;
+            border-color: transparent transparent rgba(240, 248, 255, 0.7) transparent;
+        }
+
+        /* 雾气效果 */
+        .fog-layer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 25%;
+            z-index: 0;
+            pointer-events: none;
+            background: linear-gradient(to top,
+                    rgba(230, 242, 252, 0.7) 0%,
+                    rgba(235, 245, 253, 0.4) 40%,
+                    transparent 100%);
+            animation: fogDrift 8s ease-in-out infinite;
+        }
+        @keyframes fogDrift {
+            0%,
+            100% {
+                transform: translateY(0);
+                opacity: 0.7;
+            }
+            50% {
+                transform: translateY(-8px);
+                opacity: 0.85;
+            }
+        }
+
+        /* ============ 雪花Canvas ============ */
+        #snowCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        /* ============ 光粒子层 ============ */
+        .frost-sparkles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+        .sparkle {
+            position: absolute;
+            border-radius: 50%;
+            background: #fff;
+            animation: sparkleFloat var(--dur) ease-in-out infinite;
+            animation-delay: var(--delay);
+            opacity: 0;
+        }
+        @keyframes sparkleFloat {
+            0%,
+            100% {
+                opacity: 0;
+                transform: translateY(0) scale(0.5);
+            }
+            25% {
+                opacity: 0.7;
+                transform: translateY(-20px) scale(1.2);
+            }
+            50% {
+                opacity: 0.3;
+                transform: translateY(-10px) scale(0.8);
+            }
+            75% {
+                opacity: 0.6;
+                transform: translateY(-25px) scale(1);
+            }
+        }
+
+        /* ============ 登录卡片容器 ============ */
+        .login-wrapper {
+            position: relative;
+            z-index: 10;
+            width: 420px;
+            max-width: 92vw;
+        }
+
+        /* ============ 卡片装饰边框 ============ */
+        .card-border-glow {
+            position: absolute;
+            inset: -3px;
+            border-radius: 24px;
+            background: linear-gradient(135deg,
+                    rgba(180, 215, 245, 0.5),
+                    rgba(220, 240, 255, 0.3),
+                    rgba(160, 200, 235, 0.5),
+                    rgba(230, 245, 255, 0.4));
+            z-index: -1;
+            filter: blur(8px);
+            animation: borderGlow 4s ease-in-out infinite;
+        }
+        @keyframes borderGlow {
+            0%,
+            100% {
+                opacity: 0.6;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+        .card-ice-ornament {
+            position: absolute;
+            z-index: -1;
+            pointer-events: none;
+        }
+        .card-ice-ornament.tl {
+            top: -8px;
+            left: -8px;
+            width: 40px;
+            height: 40px;
+            border-top: 2px solid rgba(200, 225, 250, 0.7);
+            border-left: 2px solid rgba(200, 225, 250, 0.7);
+            border-radius: 6px 0 0 0;
+        }
+        .card-ice-ornament.tr {
+            top: -8px;
+            right: -8px;
+            width: 40px;
+            height: 40px;
+            border-top: 2px solid rgba(200, 225, 250, 0.7);
+            border-right: 2px solid rgba(200, 225, 250, 0.7);
+            border-radius: 0 6px 0 0;
+        }
+        .card-ice-ornament.bl {
+            bottom: -8px;
+            left: -8px;
+            width: 40px;
+            height: 40px;
+            border-bottom: 2px solid rgba(200, 225, 250, 0.7);
+            border-left: 2px solid rgba(200, 225, 250, 0.7);
+            border-radius: 0 0 0 6px;
+        }
+        .card-ice-ornament.br {
+            bottom: -8px;
+            right: -8px;
+            width: 40px;
+            height: 40px;
+            border-bottom: 2px solid rgba(200, 225, 250, 0.7);
+            border-right: 2px solid rgba(200, 225, 250, 0.7);
+            border-radius: 0 0 6px 0;
+        }
+
+        /* ============ 登录卡片主体 ============ */
+        .login-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1.5px solid var(--card-border);
+            border-radius: 20px;
+            padding: 40px 36px 36px;
+            box-shadow:
+                0 8px 32px rgba(150, 190, 220, 0.2),
+                0 2px 8px rgba(180, 210, 240, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.5);
+            position: relative;
+            transition: var(--transition);
+        }
+        .login-card:hover {
+            box-shadow:
+                0 12px 40px rgba(150, 190, 220, 0.3),
+                0 4px 12px rgba(180, 210, 240, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.6);
+            border-color: rgba(210, 235, 250, 0.65);
+        }
+
+        /* ============ 冰晶装饰线 ============ */
+        .frost-line {
+            position: absolute;
+            top: 0;
+            left: 30px;
+            right: 30px;
+            height: 1px;
+            background: linear-gradient(90deg,
+                    transparent,
+                    rgba(200, 225, 250, 0.6),
+                    rgba(255, 255, 255, 0.7),
+                    rgba(200, 225, 250, 0.6),
+                    transparent);
+            border-radius: 1px;
+        }
+
+        /* ============ 标题区 ============ */
+        .login-header {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+        .login-icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 14px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #c8e0f8, #e0f0fc, #d4e8fa);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow:
+                0 4px 16px rgba(150, 200, 230, 0.3),
+                0 0 30px rgba(200, 225, 245, 0.25),
+                inset 0 2px 4px rgba(255, 255, 255, 0.7);
+            border: 2px solid rgba(220, 240, 255, 0.6);
+            position: relative;
+            animation: iconFloat 3s ease-in-out infinite;
+        }
+        @keyframes iconFloat {
+            0%,
+            100% {
+                transform: translateY(0);
+                box-shadow: 0 4px 16px rgba(150, 200, 230, 0.3), 0 0 30px rgba(200, 225, 245, 0.25);
+            }
+            50% {
+                transform: translateY(-5px);
+                box-shadow: 0 8px 24px rgba(150, 200, 230, 0.4), 0 0 40px rgba(200, 225, 245, 0.35);
+            }
+        }
+        .login-icon::after {
+            content: '';
+            position: absolute;
+            inset: -6px;
+            border-radius: 50%;
+            border: 1px solid rgba(200, 225, 250, 0.35);
+            animation: iconRingPulse 3s ease-in-out infinite;
+        }
+        @keyframes iconRingPulse {
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+            50% {
+                transform: scale(1.15);
+                opacity: 0.15;
+            }
+        }
+        .login-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+            text-shadow: 0 2px 8px rgba(180, 210, 240, 0.4);
+        }
+        .login-subtitle {
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            letter-spacing: 0.5px;
+            font-weight: 400;
+        }
+
+        /* ============ 表单 ============ */
+        .form-group {
+            margin-bottom: 18px;
+            position: relative;
+        }
+        .form-label {
+            display: block;
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+            margin-bottom: 6px;
+            letter-spacing: 0.5px;
+            font-weight: 500;
+            padding-left: 2px;
+        }
+        .input-wrapper {
+            position: relative;
+        }
+        .input-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            pointer-events: none;
+            transition: var(--transition);
+            z-index: 1;
+        }
+        .form-input {
+            width: 100%;
+            padding: 12px 16px 12px 44px;
+            border-radius: 14px;
+            border: 1.5px solid var(--input-border);
+            background: var(--input-bg);
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            font-family: var(--font-sans);
+            letter-spacing: 0.4px;
+            outline: none;
+            transition: var(--transition);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            box-shadow: 0 2px 8px rgba(180, 210, 240, 0.1);
+        }
+        .form-input::placeholder {
+            color: var(--text-muted);
+            letter-spacing: 0.3px;
+            opacity: 0.7;
+        }
+        .form-input:focus {
+            border-color: var(--input-focus);
+            box-shadow:
+                0 0 0 3px rgba(160, 210, 240, 0.15),
+                0 4px 14px rgba(150, 200, 230, 0.2);
+            background: rgba(255, 255, 255, 0.6);
+        }
+        .form-input:focus~.input-icon,
+        .form-input:focus+.input-icon {
+            color: var(--deep-frost);
+        }
+        .form-input:hover {
+            border-color: rgba(170, 210, 240, 0.65);
+            background: rgba(255, 255, 255, 0.52);
+        }
+
+        /* ============ 密码可见切换 ============ */
+        .toggle-password {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            padding: 4px 8px;
+            border-radius: 8px;
+            transition: var(--transition);
+            z-index: 1;
+        }
+        .toggle-password:hover {
+            color: var(--deep-frost);
+            background: rgba(180, 210, 240, 0.15);
+        }
+
+        /* ============ 选项行 ============ */
+        .options-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 22px;
+            font-size: 0.78rem;
+        }
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            color: var(--text-secondary);
+            user-select: none;
+            letter-spacing: 0.3px;
+        }
+        .remember-me input[type="checkbox"] {
+            display: none;
+        }
+        .custom-checkbox {
+            width: 17px;
+            height: 17px;
+            border-radius: 5px;
+            border: 1.5px solid var(--input-border);
+            background: var(--input-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            flex-shrink: 0;
+        }
+        .custom-checkbox::after {
+            content: '✓';
+            font-size: 0.65rem;
+            color: #fff;
+            display: none;
+        }
+        .remember-me input:checked+.custom-checkbox {
+            background: var(--deep-frost);
+            border-color: var(--deep-frost);
+            box-shadow: 0 0 8px rgba(130, 185, 220, 0.35);
+        }
+        .remember-me input:checked+.custom-checkbox::after {
+            display: block;
+        }
+        .forgot-link {
+            color: var(--deep-frost);
+            text-decoration: none;
+            letter-spacing: 0.3px;
+            transition: var(--transition);
+            cursor: pointer;
+            font-weight: 500;
+        }
+        .forgot-link:hover {
+            color: #5a9ac0;
+            text-shadow: 0 0 8px rgba(130, 190, 225, 0.3);
+        }
+
+        /* ============ 登录按钮 ============ */
+        .login-btn {
+            width: 100%;
+            padding: 13px;
+            border: none;
+            border-radius: 14px;
+            background: var(--btn-primary);
+            color: #fff;
+            font-size: 0.95rem;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 16px var(--btn-shadow);
+            position: relative;
+            overflow: hidden;
+            font-family: var(--font-sans);
+        }
+        .login-btn:hover {
+            background: var(--btn-hover);
+            box-shadow: 0 6px 22px var(--btn-shadow), 0 0 30px rgba(160, 210, 240, 0.3);
+            transform: translateY(-1px);
+            letter-spacing: 2px;
+        }
+        .login-btn:active {
+            transform: translateY(0) scale(0.98);
+            box-shadow: 0 2px 8px var(--btn-shadow);
+        }
+        .login-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        .login-btn:active::before {
+            width: 300px;
+            height: 300px;
+        }
+        .btn-shine {
+            position: absolute;
+            top: 0;
+            left: -75%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(90deg,
+                    transparent,
+                    rgba(255, 255, 255, 0.25),
+                    transparent);
+            transform: skewX(-25deg);
+            animation: btnShine 3s ease-in-out infinite;
+        }
+        @keyframes btnShine {
+            0% {
+                left: -75%;
+            }
+            50% {
+                left: 125%;
+            }
+            100% {
+                left: 125%;
+            }
+        }
+
+        /* ============ 注册提示 ============ */
+        .register-hint {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            letter-spacing: 0.3px;
+        }
+        .register-link {
+            color: var(--deep-frost);
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .register-link:hover {
+            color: #5a9ac0;
+            text-shadow: 0 0 8px rgba(130, 190, 225, 0.3);
+        }
+
+        /* ============ 雪花装饰线 ============ */
+        .snow-divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 16px 0 10px;
+            color: var(--text-muted);
+            font-size: 0.72rem;
+            letter-spacing: 0.4px;
+            opacity: 0.7;
+        }
+        .snow-divider::before,
+        .snow-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(180, 210, 240, 0.5), transparent);
+        }
+        .snow-divider::before {
+            background: linear-gradient(90deg, transparent, rgba(180, 210, 240, 0.5));
+        }
+        .snow-divider::after {
+            background: linear-gradient(90deg, rgba(180, 210, 240, 0.5), transparent);
+        }
+
+        /* ============ 底部版本信息 ============ */
+        .footer-info {
+            text-align: center;
+            margin-top: 16px;
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            letter-spacing: 0.5px;
+            opacity: 0.6;
+        }
+
+        /* ============ Toast提示 ============ */
+        .custom-toast {
+            position: fixed;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(220, 238, 255, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(200, 225, 250, 0.5);
+            color: var(--text-primary);
+            padding: 10px 22px;
+            border-radius: 25px;
+            font-size: 0.8rem;
+            letter-spacing: 0.5px;
+            z-index: 100;
+            pointer-events: none;
+            box-shadow: 0 4px 20px rgba(150, 200, 230, 0.25);
+            animation: toastIn 0.4s ease, toastOut 0.4s ease 2.2s forwards;
+            max-width: 90vw;
+            white-space: nowrap;
+        }
+        @keyframes toastIn {
+            from {
+                opacity: 0;
+                transform: translateX(-50%) translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+        @keyframes toastOut {
+            from {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateX(-50%) translateY(-15px);
+            }
+        }
+
+        /* ============ 响应式 ============ */
+        @media (max-width: 480px) {
+            .login-card {
+                padding: 28px 20px 24px;
+                border-radius: 16px;
+            }
+            .login-title {
+                font-size: 1.35rem;
+            }
+            .login-icon {
+                width: 52px;
+                height: 52px;
+                font-size: 1.6rem;
+            }
+            .card-ice-ornament {
+                width: 28px;
+                height: 28px;
+            }
+            .card-ice-ornament.tl {
+                top: -5px;
+                left: -5px;
+            }
+            .card-ice-ornament.tr {
+                top: -5px;
+                right: -5px;
+            }
+            .card-ice-ornament.bl {
+                bottom: -5px;
+                left: -5px;
+            }
+            .card-ice-ornament.br {
+                bottom: -5px;
+                right: -5px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 动漫背景 -->
+    <div class="anime-bg"></div>
+
+    <!-- 远山剪影 -->
+    <div class="anime-mountains">
+        <div class="mountain mountain-1"></div>
+        <div class="mountain mountain-2"></div>
+        <div class="mountain mountain-3"></div>
+        <div class="mountain mountain-4"></div>
+        <div class="mountain mountain-5"></div>
+        <div class="mountain-snow mountain-snow-1"></div>
+        <div class="mountain-snow mountain-snow-2"></div>
+        <div class="mountain-snow mountain-snow-3"></div>
+        <div class="mountain-snow mountain-snow-4"></div>
+    </div>
+
+    <!-- 雾气 -->
+    <div class="fog-layer"></div>
+
+    <!-- 光粒子 -->
+    <div class="frost-sparkles" id="frostSparkles"></div>
+
+    <!-- 雪花Canvas -->
+    <canvas id="snowCanvas"></canvas>
+
+    <!-- 登录卡片 -->
+    <div class="login-wrapper">
+        <div class="card-border-glow"></div>
+        <div class="card-ice-ornament tl"></div>
+        <div class="card-ice-ornament tr"></div>
+        <div class="card-ice-ornament bl"></div>
+        <div class="card-ice-ornament br"></div>
+        <div class="login-card">
+            <div class="frost-line"></div>
+            <div class="login-header">
+                <div class="login-icon">❄️</div>
+                <h1 class="login-title">冬日之约</h1>
+                <p class="login-subtitle">在雪花纷飞的季节，与你相遇</p>
+            </div>
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label class="form-label" for="username">账号</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon">👤</span>
+                        <input
+                        type="text"
+                        class="form-input"
+                        id="username"
+                        placeholder="请输入用户名或邮箱"
+                        required
+                        autocomplete="username"
+                        >
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="password">密码</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon">🔒</span>
+                        <input
+                        type="password"
+                        class="form-input"
+                        id="password"
+                        placeholder="请输入密码"
+                        required
+                        autocomplete="current-password"
+                        >
+                        <button type="button" class="toggle-password" id="togglePwd" onclick="togglePassword()" title="显示/隐藏密码">👁️</button>
+                    </div>
+                </div>
+                <div class="options-row">
+                    <label class="remember-me">
+                        <input type="checkbox" id="remember">
+                        <span class="custom-checkbox"></span>
+                        记住我
+                    </label>
+                    <a class="forgot-link" onclick="showToast('🔗 已发送重置链接到您的邮箱')">忘记密码？</a>
+                </div>
+                <button type="submit" class="login-btn">
+                    <span class="btn-shine"></span>
+                    ✨ 登 录
+                </button>
+            </form>
+            <div class="snow-divider">❄ 还没有账号 ❄</div>
+            <div class="register-hint">
+                初次来到这里？<a class="register-link" onclick="showToast('🌸 注册功能即将开放，敬请期待~')">立即注册</a>
+            </div>
+        </div>
+        <div class="footer-info">
+            ❄️ Winter Login · Made with Frost & Snowflakes ❄️
+        </div>
+    </div>
+
+    <script>
+        // ==================== 雪花系统 ====================
+        (function createSnow() {
+            const canvas = document.getElementById('snowCanvas');
+            const ctx = canvas.getContext('2d');
+            let snowflakes = [];
+            const maxFlakes = 120;
+
+            function resize() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            resize();
+            window.addEventListener('resize', () => {
+                resize();
+                // 调整现有雪花位置
+                snowflakes.forEach(f => {
+                    if (f.x > canvas.width) f.x = Math.random() * canvas.width;
+                    if (f.y > canvas.height) f.y = Math.random() * canvas.height;
+                });
+            });
+
+            class Snowflake {
+                constructor(randomY = true) {
+                    this.reset(randomY);
+                }
+                reset(randomY = true) {
+                    this.x = Math.random() * canvas.width;
+                    this.y = randomY ? Math.random() * canvas.height : -20;
+                    this.size = Math.random() * 4.5 + 1.5;
+                    this.speedY = Math.random() * 0.8 + 0.25;
+                    this.speedX = Math.random() * 0.4 - 0.2;
+                    this.wind = Math.random() * 0.15 - 0.075;
+                    this.opacity = Math.random() * 0.7 + 0.3;
+                    this.swingAmplitude = Math.random() * 1.2 + 0.3;
+                    this.swingSpeed = Math.random() * 0.015 + 0.005;
+                    this.swingOffset = Math.random() * Math.PI * 2;
+                    this.angle = Math.random() * Math.PI * 2;
+                    // 雪花形状多样性
+                    this.type = Math.floor(Math.random() * 3); // 0: 圆, 1: 六角形, 2: 星形
+                    this.rotation = Math.random() * Math.PI * 2;
+                    this.rotationSpeed = (Math.random() - 0.5) * 0.02;
+                }
+                update() {
+                    this.y += this.speedY;
+                    this.x += this.speedX + Math.sin(this.swingOffset + this.y * this.swingSpeed) * this
+                        .swingAmplitude + this.wind;
+                    this.rotation += this.rotationSpeed;
+                    // 偶尔改变风向
+                    if (Math.random() < 0.002) {
+                        this.speedX += (Math.random() - 0.5) * 0.15;
+                        this.speedX = Math.max(-0.4, Math.min(0.4, this.speedX));
+                    }
+                    if (this.y > canvas.height + 20 || this.x < -30 || this.x > canvas.width + 30) {
+                        this.reset(false);
+                    }
+                }
+                draw(ctx) {
+                    ctx.save();
+                    ctx.translate(this.x, this.y);
+                    ctx.rotate(this.rotation);
+                    ctx.globalAlpha = this.opacity;
+
+                    if (this.type === 0) {
+                        // 圆形雪花
+                        ctx.beginPath();
+                        ctx.arc(0, 0, this.size / 2, 0, Math.PI * 2);
+                        ctx.fillStyle = '#fff';
+                        ctx.fill();
+                        // 光晕
+                        ctx.beginPath();
+                        ctx.arc(0, 0, this.size * 0.8, 0, Math.PI * 2);
+                        ctx.fillStyle = 'rgba(255,255,255,0.2)';
+                        ctx.fill();
+                    } else if (this.type === 1) {
+                        // 六角形晶体
+                        const s = this.size;
+                        ctx.beginPath();
+                        for (let i = 0; i < 6; i++) {
+                            const angle = (Math.PI / 3) * i;
+                            const x = Math.cos(angle) * s * 0.6;
+                            const y = Math.sin(angle) * s * 0.6;
+                            if (i === 0) ctx.moveTo(x, y);
+                            else ctx.lineTo(x, y);
+                        }
+                        ctx.closePath();
+                        ctx.fillStyle = 'rgba(255,255,255,0.85)';
+                        ctx.fill();
+                        ctx.strokeStyle = 'rgba(220,240,255,0.5)';
+                        ctx.lineWidth = 0.4;
+                        ctx.stroke();
+                    } else {
+                        // 星形雪花（十字+斜线）
+                        const s = this.size;
+                        ctx.fillStyle = 'rgba(255,255,255,0.9)';
+                        // 中心圆
+                        ctx.beginPath();
+                        ctx.arc(0, 0, s * 0.25, 0, Math.PI * 2);
+                        ctx.fill();
+                        // 六条射线
+                        for (let i = 0; i < 6; i++) {
+                            const angle = (Math.PI / 3) * i;
+                            ctx.beginPath();
+                            ctx.moveTo(Math.cos(angle) * s * 0.2, Math.sin(angle) * s * 0.2);
+                            ctx.lineTo(Math.cos(angle) * s * 0.65, Math.sin(angle) * s * 0.65);
+                            ctx.strokeStyle = 'rgba(255,255,255,0.7)';
+                            ctx.lineWidth = 0.8;
+                            ctx.stroke();
+                            // 小分支
+                            const bx = Math.cos(angle) * s * 0.45;
+                            const by = Math.sin(angle) * s * 0.45;
+                            ctx.beginPath();
+                            ctx.moveTo(bx, by);
+                            ctx.lineTo(bx + Math.cos(angle + 0.6) * s * 0.2, by + Math.sin(angle + 0.6) * s *
+                                0.2);
+                            ctx.moveTo(bx, by);
+                            ctx.lineTo(bx + Math.cos(angle - 0.6) * s * 0.2, by + Math.sin(angle - 0.6) * s *
+                                0.2);
+                            ctx.strokeStyle = 'rgba(255,255,255,0.5)';
+                            ctx.lineWidth = 0.5;
+                            ctx.stroke();
+                        }
+                    }
+                    ctx.restore();
+                }
+            }
+
+            // 初始化雪花
+            for (let i = 0; i < maxFlakes; i++) {
+                snowflakes.push(new Snowflake());
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                snowflakes.forEach(f => {
+                    f.update();
+                    f.draw(ctx);
+                });
+                requestAnimationFrame(animate);
+            }
+            animate();
+
+            // 窗口大小变化时重新填充
+            window.addEventListener('resize', () => {
+                while (snowflakes.length < maxFlakes) {
+                    snowflakes.push(new Snowflake());
+                }
+            });
+        })();
+
+        // ==================== 光粒子 ====================
+        (function createSparkles() {
+            const container = document.getElementById('frostSparkles');
+            const count = 35;
+            const frag = document.createDocumentFragment();
+            for (let i = 0; i < count; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.classList.add('sparkle');
+                const size = Math.random() * 4 + 1.5;
+                sparkle.style.width = size + 'px';
+                sparkle.style.height = size + 'px';
+                sparkle.style.left = Math.random() * 100 + '%';
+                sparkle.style.top = Math.random() * 100 + '%';
+                sparkle.style.setProperty('--dur', (Math.random() * 4 + 3) + 's');
+                sparkle.style.setProperty('--delay', (Math.random() * 6) + 's');
+                frag.appendChild(sparkle);
+            }
+            container.appendChild(frag);
+        })();
+
+        // ==================== 密码显示切换 ====================
+        function togglePassword() {
+            const pwdInput = document.getElementById('password');
+            const toggleBtn = document.getElementById('togglePwd');
+            if (pwdInput.type === 'password') {
+                pwdInput.type = 'text';
+                toggleBtn.textContent = '🙈';
+                toggleBtn.title = '隐藏密码';
+            } else {
+                pwdInput.type = 'password';
+                toggleBtn.textContent = '👁️';
+                toggleBtn.title = '显示密码';
+            }
+        }
+
+        // ==================== 登录处理 ====================
+        function handleLogin(e) {
+            e.preventDefault();
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value.trim();
+
+            if (!username || !password) {
+                showToast('⚠️ 请填写完整的登录信息');
+                return;
+            }
+
+            const btn = document.querySelector('.login-btn');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '❄️ 登录中...';
+            btn.disabled = true;
+            btn.style.cursor = 'wait';
+            btn.style.opacity = '0.8';
+
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+                btn.style.cursor = 'pointer';
+                btn.style.opacity = '1';
+                showToast('✅ 登录成功！欢迎回来，' + username + ' ❄️');
+                document.getElementById('password').value = '';
+            }, 1800);
+        }
+
+        // ==================== Toast提示 ====================
+        function showToast(message) {
+            const existing = document.querySelector('.custom-toast');
+            if (existing) existing.remove();
+            const toast = document.createElement('div');
+            toast.classList.add('custom-toast');
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            setTimeout(() => { if (toast.parentNode) toast.remove(); }, 2700);
+        }
+
+        // ==================== 键盘快捷键 ====================
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && document.activeElement && document.activeElement.tagName !==
+                'BUTTON') {
+                const form = document.getElementById('loginForm');
+                if (form && document.activeElement.closest('form')) {
+                    // 让表单自然提交
+                }
+            }
+        });
+
+        // ==================== 卡片hover增强 ====================
+        const loginCard = document.querySelector('.login-card');
+        if (loginCard) {
+            loginCard.addEventListener('mousemove', function(e) {
+                const rect = loginCard.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const rotateX = (y - rect.height / 2) / (rect.height / 2) * -2.5;
+                const rotateY = (x - rect.width / 2) / (rect.width / 2) * 2.5;
+                loginCard.style.transform =
+                    `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            });
+            loginCard.addEventListener('mouseleave', function() {
+                loginCard.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg)';
+                loginCard.style.transition = 'transform 0.5s ease';
+                setTimeout(() => { loginCard.style.transition = ''; }, 500);
+            });
+        }
+
+        // ==================== 初始化 ====================
+        console.log('%c❄️ 冬日登录界面 %c已就绪',
+            'color:#7ab4d8;font-size:1.2em;', 'color:#a0c8e8;');
+        console.log('%c🌸 在雪花纷飞的季节，与你相遇', 'color:#b8d4f0;font-style:italic;');
+        console.log('%c💡 点击登录按钮或按回车键提交', 'color:#8ab8d4;');
+
+        setTimeout(() => showToast('❄️ 欢迎来到冬日之约 · 雪花正在飘落'), 600);
+    </script>
+</body>
+</html>
